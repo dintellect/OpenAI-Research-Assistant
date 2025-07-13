@@ -194,16 +194,27 @@ async def chat(request: ChatRequest):
         
         # If paper_id is provided in the user message, include paper content
         paper_content = ""
-        if hasattr(request, 'paper_id') and request.paper_id:
+        if request.paper_id:
             paper = papers_db.get(request.paper_id)
             if paper:
                 paper_content = "\n\nPaper Content:\n" + "\n\n".join(paper["chunks"][:6])
+                print(f"Paper content loaded for paper_id: {request.paper_id}, chunks: {len(paper['chunks'])}")
+            else:
+                print(f"Paper not found for paper_id: {request.paper_id}")
+        else:
+            print("No paper_id provided in chat request")
 
         async def generate():
+            system_message = request.developer_message
+            if paper_content:
+                system_message += f"\n\nYou have access to the following research paper content. Use this information to answer questions about the paper:\n{paper_content}"
+            else:
+                system_message += "\n\nYou are a helpful research assistant. If the user asks about a specific paper, let them know you don't have access to that paper's content."
+            
             stream = client.chat.completions.create(
                 model=request.model,
                 messages=[
-                    {"role": "system", "content": request.developer_message + paper_content},
+                    {"role": "system", "content": system_message},
                     {"role": "user", "content": request.user_message}
                 ],
                 stream=True

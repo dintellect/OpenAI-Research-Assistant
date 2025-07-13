@@ -37,6 +37,13 @@ export default function Home() {
 
   // Get the API base URL from environment or default to localhost
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  
+  // Ensure the API URL doesn't have a trailing slash to avoid double slashes
+  const cleanApiUrl = API_BASE_URL.endsWith('/') ? API_BASE_URL.slice(0, -1) : API_BASE_URL;
+  
+  // Debug: Log the API URL to console
+  console.log("API_BASE_URL:", API_BASE_URL);
+  console.log("Clean API URL:", cleanApiUrl);
 
   // Handle PDF file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,8 +84,11 @@ export default function Home() {
       formData.append("file", file);
       formData.append("api_key", apiKey);
       
+      console.log("Uploading to:", `${cleanApiUrl}/api/upload-paper`);
+      console.log("File:", file.name, "Size:", file.size);
+      
       // Add a timeout to show progress
-      const uploadPromise = fetch(`${API_BASE_URL}/api/upload-paper`, {
+      const uploadPromise = fetch(`${cleanApiUrl}/api/upload-paper`, {
         method: "POST",
         body: formData,
       });
@@ -104,12 +114,29 @@ export default function Home() {
       
       clearInterval(progressInterval);
       
+      console.log("Response status:", res.status);
+      console.log("Response headers:", Object.fromEntries(res.headers.entries()));
+      
       const data = await res.json();
+      console.log("Response data:", data);
+      
       if (!res.ok) throw new Error(data.detail || "Upload failed");
       setPaperId(data.paper_id);
       setUploadProgress("Upload completed successfully!");
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : "Upload failed";
+      console.error("Upload error:", err);
+      console.error("Error type:", typeof err);
+      console.error("Error constructor:", err?.constructor?.name);
+      
+      let errorMessage = "Upload failed";
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (err instanceof TypeError) {
+        errorMessage = "Network error - please check your connection";
+      } else {
+        errorMessage = String(err);
+      }
+      
       setUploadError(errorMessage);
       setUploadProgress("");
     } finally {
@@ -139,7 +166,7 @@ export default function Home() {
       // Prepare the chat history as context
       const developer_message = `You are a helpful research assistant. Answer questions and chat about the following research paper (paper_id: ${paperId}). If the user asks about the paper, use its content. If not, answer as a general assistant.`;
       const user_message = newMessages.map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n');
-      const res = await fetch(`${API_BASE_URL}/api/chat`, {
+      const res = await fetch(`${cleanApiUrl}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -180,8 +207,8 @@ export default function Home() {
     setSummaryLoading(true);
     setSummaryError(null);
     try {
-      console.log("Fetching summary from:", `${API_BASE_URL}/api/get-summary?paper_id=${paperId}`);
-      const res = await fetch(`${API_BASE_URL}/api/get-summary?paper_id=${paperId}`);
+      console.log("Fetching summary from:", `${cleanApiUrl}/api/get-summary?paper_id=${paperId}`);
+      const res = await fetch(`${cleanApiUrl}/api/get-summary?paper_id=${paperId}`);
       console.log("Response status:", res.status);
       const data = await res.json();
       console.log("Response data:", data);
@@ -206,8 +233,8 @@ export default function Home() {
     setCodeLoading(true);
     setCodeError(null);
     try {
-      console.log("Fetching code from:", `${API_BASE_URL}/api/get-code?paper_id=${paperId}`);
-      const res = await fetch(`${API_BASE_URL}/api/get-code?paper_id=${paperId}`);
+      console.log("Fetching code from:", `${cleanApiUrl}/api/get-code?paper_id=${paperId}`);
+      const res = await fetch(`${cleanApiUrl}/api/get-code?paper_id=${paperId}`);
       console.log("Response status:", res.status);
       const data = await res.json();
       console.log("Response data:", data);
@@ -232,8 +259,8 @@ export default function Home() {
     setCitationLoading(true);
     setCitationError(null);
     try {
-      console.log("Fetching citation from:", `${API_BASE_URL}/api/get-citation?paper_id=${paperId}`);
-      const res = await fetch(`${API_BASE_URL}/api/get-citation?paper_id=${paperId}`);
+      console.log("Fetching citation from:", `${cleanApiUrl}/api/get-citation?paper_id=${paperId}`);
+      const res = await fetch(`${cleanApiUrl}/api/get-citation?paper_id=${paperId}`);
       console.log("Response status:", res.status);
       const data = await res.json();
       console.log("Response data:", data);
