@@ -1,6 +1,9 @@
-<p align = "center" draggable="false" ><img src="project_image.png" 
-     width="200px"
-     height="auto"/>
+
+
+<p align = "center" draggable="false" ><img src="front.png" 
+     width="800px"
+     height="auto"
+     alt="Research Assistant Frontend Interface"/>
 </p>
 
 ## <h1 align="center" id="heading"> 🤖 Research Assistant - AI-Powered Paper Analysis</h1>
