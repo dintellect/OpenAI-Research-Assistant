@@ -10,14 +10,6 @@
 </p>
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#business-cases">Business Cases</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#api-docs">API Docs</a> •
-  <a href="#deployment">Deployment</a>
-</p>
-
-<p align="center">
   <a href="https://frontend-d9q17b3s8-dintellects-projects.vercel.app/" target="_blank">
     <img src="https://img.shields.io/badge/Try%20Now-Live%20Demo-blue?style=for-the-badge&logo=vercel" alt="Try Now - Live Demo" />
   </a>
@@ -275,4 +267,6 @@ OPENAI_API_KEY=your_api_key_here
 CORS_ORIGINS=http://localhost:3000,https://yourdomain.com
 ```
 
+*Built with ❤️ using FastAPI, Next.js, and OpenAI GPT-4*
 
+**⭐ Star this repository if you found it helpful!**
