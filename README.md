@@ -1,4 +1,4 @@
-<p align = "center" draggable="false" ><img src="../project_image.png" 
+<p align = "center" draggable="false" ><img src="project_image.png" 
      width="200px"
      height="auto"/>
 </p>
@@ -15,6 +15,12 @@
   <a href="#quick-start">Quick Start</a> •
   <a href="#api-docs">API Docs</a> •
   <a href="#deployment">Deployment</a>
+</p>
+
+<p align="center">
+  <a href="https://frontend-d9q17b3s8-dintellects-projects.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Try%20Now-Live%20Demo-blue?style=for-the-badge&logo=vercel" alt="Try Now - Live Demo" />
+  </a>
 </p>
 
 ---
@@ -269,66 +275,4 @@ OPENAI_API_KEY=your_api_key_here
 CORS_ORIGINS=http://localhost:3000,https://yourdomain.com
 ```
 
----
 
-## 🔒 Security & Privacy
-
-### Data Protection
-- **Local Storage**: Your OpenAI API key is stored locally and never shared
-- **No Data Retention**: Paper content is processed in real-time, not stored
-- **Secure Processing**: All data transmission uses HTTPS encryption
-- **API Security**: Rate limiting and input validation prevent abuse
-
-### Compliance
-- **GDPR Ready**: No personal data collection or storage
-- **Academic Integrity**: Proper citation and attribution handling
-- **Open Source**: Transparent codebase for security review
-
----
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and test thoroughly
-4. Commit with clear messages: `git commit -m 'Add amazing feature'`
-5. Push to your branch: `git push origin feature/amazing-feature`
-6. Submit a pull request
-
-### Areas for Contribution
-- **UI/UX Improvements**: Better user interface and experience
-- **API Enhancements**: New endpoints and functionality
-- **Documentation**: Better guides and examples
-- **Testing**: Unit tests and integration tests
-- **Performance**: Optimization and scalability improvements
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-## 🎉 Success Stories
-
-> *"This tool saved our research team hours of manual paper analysis. We can now process dozens of papers in a day instead of weeks!"* - **Dr. Sarah Chen, Research Director**
-
-> *"The code generation feature is incredible. We implemented a research algorithm in minutes instead of days."* - **Alex Rodriguez, Senior Developer**
-
-> *"Perfect for our consulting practice. We can provide clients with AI-enhanced research insights that set us apart."* - **Maria Thompson, Strategy Consultant**
-
----
-
-## 🚀 Ready to Transform Your Research?
-
-Get started today and experience the future of research analysis!
-
-[![Deploy on Fly.io](https://fly.io/static/images/brand/logo.svg)](https://fly.io)
-
----
-
-*Built with ❤️ using FastAPI, Next.js, and OpenAI GPT-4*
